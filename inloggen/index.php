@@ -1,9 +1,16 @@
 <?php
 	include_once('../classes/Autoloader.php');
+	Session::start();
+	
+	// Redirect back to home if already logged in.
+	if(Session::loginStatus()) {
+	    RedirectHandler::HTTP_301('../index.php');
+    }
 ?>
     <html lang="nl">
     <head>
         <title>Huiswerk Website --Login--</title>
+        <link rel="stylesheet" href="../style/Main.css">
         <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
     </head>
     <body>
@@ -35,10 +42,9 @@
 	if (isset($_POST['username'], $_POST['pass'])) {
 	    $username = $_POST['username'];
 	    $pass = $_POST['pass'];
+
+	    // de wachtwoorden moeten opgeslagen zijn in de database met password_hash()
 	    
-	    // Use to generate hashed pass.
-//	    echo password_hash($pass, PASSWORD_DEFAULT);
- 
         $user = new User($username, $pass);
         $user->login();
 	}
