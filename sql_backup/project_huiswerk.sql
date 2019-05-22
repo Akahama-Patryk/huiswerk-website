@@ -31,6 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `feedback` (
   `id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `feedback` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
