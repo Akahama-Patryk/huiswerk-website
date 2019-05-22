@@ -8,8 +8,6 @@ CREATE TABLE `user` (
     `id` varchar(255) NOT NULL,
     `username` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
-    `isAdmin` int(1) NOT NULL,
-    `created_at` datetime(6) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -19,8 +17,6 @@ CREATE TABLE `homework` (
     `homework` varchar(255) NOT NULL,
     `subject` varchar(255) NOT NULL,
     `deadline` datetime(6) NOT NULL,
-    `user_id` varchar(255) NOT NULL,
-    `created_at` varchar(255) NOT NULL,
     `file` varchar(255),
     PRIMARY KEY (`id`)
 );
@@ -28,11 +24,7 @@ CREATE TABLE `homework` (
 CREATE TABLE `feedback` (
     `id` varchar(255) NOT NULL,
     `name` varchar(255) NOT NULL,
-    `created_at` datetime(6) NOT NULL,
     `feedback` varchar(255) NOT NULL,
-    `homework_id` varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
-ALTER TABLE `homework` ADD FOREIGN KEY (`user_id`) REFERENCES `user`(`id`);
-ALTER TABLE `feedback` ADD FOREIGN KEY (`homework_id`) REFERENCES `homework`(`id`);
