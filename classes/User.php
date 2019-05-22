@@ -52,10 +52,10 @@
 						
 						RedirectHandler::HTTP_301('../index.php');
 					} else {
-						echo "<h4>Gebruikersnaam of wachtwoord is onjuist.</h4>";
+						echo "<h4>Username/password incorrect.</h4>";
 					}
 				} else {
-					echo "<h4>Gebruikersnaam of wachtwoord is onjuist.</h4>";
+					echo "<h4>Username/password incorrect.</h4>";
 				}
 			}
 		}
