@@ -9,7 +9,7 @@
 		 * @var
 		 * string Username.
 		 */
-		protected $user_name;
+		protected $username;
 		
 		/**
 		 * @var
@@ -19,12 +19,12 @@
 		
 		/**
 		 * User constructor.
-		 * @param $user_name
+		 * @param $username
 		 * @param $pass
 		 */
-		public function __construct($user_name, $pass)
+		public function __construct($username, $pass)
 		{
-			$this->user_name = $user_name;
+			$this->username = $username;
 			$this->pass = $pass;
 		}
 		
@@ -34,38 +34,45 @@
 		public function login()
 		{
 			
-			if (!empty($this->user_name) && !empty($this->pass)) {
+			if (!empty($this->username) && !empty($this->pass)) {
 				$conn = Utility::pdoConnect();
 				
-				$login = $conn->prepare("select * from gebruikers where gebruiker_gebruikersnaam=:user_name");
-				$login->bindParam(':user_name', $this->user_name);
+				$login = $conn->prepare("select * from user where username=:username");
+				$login->bindParam(':username', $this->username);
 				$login->execute();
 				
 				if ($login->rowCount() == 1) {
 					$user_data = $login->fetch(PDO::FETCH_ASSOC);
-					$hashed_pass = $user_data['gebruiker_wachtwoord'];
-					$admin_status = $user_data['gebruiker_admin_status'];
+					$hashed_pass = $user_data['password'];
 					
-					if (Utility::verifyEncryptedPassword($this->pass, $hashed_pass)) {
+					if (User::verifyEncryptedPassword($this->pass, $hashed_pass)) {
 						// Password verified, user has been logged in.
 						$_SESSION['login_status'] = true;
-						$_SESSION['login_user'] = $user_data['gebuiker_gebruikersnaam'];
+						$_SESSION['login_user'] = $user_data['username'];
 						
-						if ($admin_status == 1) {
-							// Admin status verified, user has been logged in as admin.
-							$_SESSION['login_admin_status'] = true;
-							
-						} else {
-							$_SESSION['login_admin_status'] = false;
-						}
-						//TODO met patryk framework redirect doen.
-						RedirectHandler::HTTP_301('index.php');
+						RedirectHandler::HTTP_301('../index.php');
 					} else {
 						echo "<h4>Gebruikersnaam of wachtwoord is onjuist.</h4>";
 					}
 				} else {
 					echo "<h4>Gebruikersnaam of wachtwoord is onjuist.</h4>";
 				}
+			}
+		}
+		
+		/**
+		 * @param $pass
+		 * @param $hashed_pass
+		 * @return bool
+		 *
+		 * Verifies encrypted passwords.
+		 */
+		public static function verifyEncryptedPassword($pass, $hashed_pass)
+		{
+			if (password_verify($pass, $hashed_pass)) {
+				return true;
+			} else {
+				return false;
 			}
 		}
 	}
