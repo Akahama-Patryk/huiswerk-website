@@ -27,9 +27,9 @@
 /**
  * Simple Recursive ClassLoader
  *
- * A simple autoloader that loads class files recursively starting in the directory
- * where this class resides.  Additional options can be provided to control the naming
- * convention of the class files.
+ * A simple autoloader that loads classes files recursively starting in the directory
+ * where this classes resides.  Additional options can be provided to control the naming
+ * convention of the classes files.
  *
  * @package ClassLoader
  * @license http://opensource.org/licenses/MIT  MIT License
@@ -57,7 +57,7 @@ class Autoloader
     /**
      * Autoload function for registration with spl_autoload_register
      *
-     * Looks recursively through project directory and loads class files based on
+     * Looks recursively through project directory and loads classes files based on
      * filename match.
      *
      * @param string $className
@@ -94,7 +94,7 @@ class Autoloader
     /**
      * Sets the $fileExt property
      *
-     * @param string $fileExt The file extension used for class files.  Default is "php".
+     * @param string $fileExt The file extension used for classes files.  Default is "php".
      */
     public static function setFileExt($fileExt)
     {

@@ -1,10 +1,9 @@
 <?php
-include_once('class/Autoloader.php');
+	include_once('classes/Autoloader.php');
 ?>
 <html lang="nl">
 <head>
     <title>Huiswerk Website --Login--</title>
-<!--    <link rel="icon" href="img/logo.ico">-->
     <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
 </head>
 <body>
@@ -13,21 +12,18 @@ include_once('class/Autoloader.php');
         <h3 class="mb-0">Login</h3>
     </div>
     <div class="card-body bg-light">
-        <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
+        <form class="form" role="form" id="formLogin" method="POST">
             <div class="form-group">
                 <label for="user">Username</label>
                 <input type="text" class="form-control form-control-lg rounded-0" name="user" id="user" required
-                       placeholder="Type your username.">
-                <div class="invalid-feedback">Oops, you missed this one.</div>
+                       placeholder="Gebruikersnaam">
             </div>
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" class="form-control form-control-lg rounded-0" id="pass" name="pass" required
-                       autocomplete="new-password" placeholder="Type your password.">
-                <div class="invalid-feedback">Enter your password too!</div>
+                       autocomplete="new-password" placeholder="Wachtwoord">
             </div>
-            <a href="register.php" class="btn btn-primary btn-lg float-left" id="btnLogin">Register</a>
-            <button type="submit" name="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>
+            <button type="submit" name="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Inloggen</button>
         </form>
     </div>
 </div>
