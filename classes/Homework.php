@@ -30,4 +30,20 @@ class Homework
         <?php
         endforeach;
     }
+
+    public function sendFeedback($name, $email, $feedback)
+    {
+        if (!empty($name) && (!empty($email) && (!empty($feedback)))) {
+            $conn = Utility::pdoConnect();
+            $send = $conn->prepare("INSERT INTO feedback (id, name, email, feedback) VALUES  ((SELECT UUID()), ?, ?, ?)");
+            $send->bindParam(1, $name);
+            $send->bindParam(2, $email);
+            $send->bindParam(3, $feedback);
+            $send->execute();
+            RedirectHandler::HTTP_301('index.php');
+            echo "Works";
+        }else{
+            echo "Error";
+        }
+    }
 }
