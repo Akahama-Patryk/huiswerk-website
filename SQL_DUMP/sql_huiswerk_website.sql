@@ -9,7 +9,7 @@ CREATE TABLE `user` (
     `username` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
     `isAdmin` int(1) NOT NULL,
-    `created_at` datetime(15) NOT NULL,
+    `created_at` datetime(6) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -18,7 +18,7 @@ CREATE TABLE `homework` (
     `title` varchar(255) NOT NULL,
     `homework` varchar(255) NOT NULL,
     `subject` varchar(255) NOT NULL,
-    `deadline` date(15) NOT NULL,
+    `deadline` datetime(6) NOT NULL,
     `user_id` varchar(255) NOT NULL,
     `created_at` varchar(255) NOT NULL,
     `file` varchar(255),
@@ -28,7 +28,7 @@ CREATE TABLE `homework` (
 CREATE TABLE `feedback` (
     `id` varchar(255) NOT NULL,
     `name` varchar(255) NOT NULL,
-    `created_at` varchar(255) NOT NULL,
+    `created_at` datetime(6) NOT NULL,
     `feedback` varchar(255) NOT NULL,
     `homework_id` varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
