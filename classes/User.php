@@ -59,8 +59,7 @@
 							$_SESSION['login_admin_status'] = false;
 						}
 						//TODO met patryk framework redirect doen.
-						header('Location: Home.php');
-						die;
+						RedirectHandler::HTTP_301('index.php');
 					} else {
 						echo "<h4>Gebruikersnaam of wachtwoord is onjuist.</h4>";
 					}

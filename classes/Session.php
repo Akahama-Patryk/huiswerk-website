@@ -23,9 +23,9 @@ class Session
         session_start();
         if (Session::loginStatus()) {
             session_destroy();
-            RedirectHandler::HTTP_301();
+            RedirectHandler::HTTP_301('index.php');
         } else {
-            RedirectHandler::HTTP_301();
+            RedirectHandler::HTTP_301('index.php');
         }
     }
 
