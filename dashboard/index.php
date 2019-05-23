@@ -29,6 +29,7 @@
 		</div>
         <div class="col-md-12" style="margin-top:2em;">
             <a href="huiswerk/toevoegen.php"><button class="btn btn-primary">Toevoegen</button></a>
+            <a href="gebruiker/toevoegen.php"><button class="btn btn-primary">Gebruiker Toevoegen</button></a>
         </div>
         
 	</div>
