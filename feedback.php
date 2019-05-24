@@ -6,6 +6,7 @@ if (isset($_POST['submit'])) {
     $feedback = $_POST['comment'];
     $data = new Homework();
     $send = $data->sendFeedback($name,$email,$feedback);
+    RedirectHandler::HTTP_301('index.php');
 }
 ?>
 <html lang="nl">
@@ -15,6 +16,17 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" type="text/css" href="style/feedback.css">
 </head>
 <body>
+<ul class="nav nav-pills nav-fill">
+    <li class="nav-item">
+        <a class="nav-link" href="index.php">Homepage</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="feedback.php">Feedback</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="inloggen/inloggen.php">Admin Dashboard</a>
+    </li>
+</ul>
 <div class="container contact">
     <div class="row">
         <div class="col-md-3">

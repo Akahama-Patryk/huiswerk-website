@@ -23,12 +23,12 @@
 					?> <a href="../logout.php" class="btn btn-primary">Uitloggen</a> <?php
 					?> <a href="../index.php" class="btn btn-primary">Home</a> <?php
 				} else {
-					RedirectHandler::HTTP_301('../index.php');
+					RedirectHandler::HTTP_301('../dashboard.php');
 				}
 			?>
 		</div>
         <div class="col-md-12" style="margin-top:2em;">
-            <a href="huiswerk/toevoegen.php"><button class="btn btn-primary">Toevoegen</button></a>
+            <a href="huiswerk/toevoegen.php"><button class="btn btn-primary">Huiswerk Toevoegen</button></a>
             <a href="gebruiker/toevoegen.php"><button class="btn btn-primary">Gebruiker Toevoegen</button></a>
         </div>
         

@@ -4,7 +4,7 @@
 	
 	// Redirect back to home if already logged in.
 	if(Session::loginStatus()) {
-	    RedirectHandler::HTTP_301('../index.php');
+	    RedirectHandler::HTTP_301('../dashboard/dashboard.php');
     }
 ?>
     <html lang="nl">

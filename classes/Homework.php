@@ -34,7 +34,6 @@ class Homework
             <?php
             endforeach;
             ?>
-
         </div>
         <?php
     }
@@ -48,7 +47,7 @@ class Homework
             $send->bindParam(2, $email);
             $send->bindParam(3, $feedback);
             $send->execute();
-            RedirectHandler::HTTP_301('index.php');
+            RedirectHandler::HTTP_301('dashboard.php');
             echo "Works";
         } else {
             echo "Error";

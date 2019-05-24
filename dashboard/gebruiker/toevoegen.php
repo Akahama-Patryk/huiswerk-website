@@ -32,7 +32,7 @@ if (isset($_POST['username'], $_POST['pass'])) {
                             ?> <a href="../../logout.php" class="btn btn-primary">Uitloggen</a> <?php
                             ?> <a href="../../index.php" class="btn btn-primary">Home</a> <?php
                         } else {
-                            RedirectHandler::HTTP_301('../../index.php');
+                            RedirectHandler::HTTP_301('../../dashboard.php');
                         }
                         ?>
         </div>

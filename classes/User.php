@@ -50,7 +50,7 @@ class User
                     $_SESSION['login_status'] = true;
                     $_SESSION['login_user'] = $user_data['username'];
 
-                    RedirectHandler::HTTP_301('../dashboard/index.php');
+                    RedirectHandler::HTTP_301('../dashboard/dashboard.php');
                 } else {
                     echo "<h4>Username/password incorrect.</h4>";
                 }
@@ -69,7 +69,7 @@ class User
             $register->bindParam(1, $this->username);
             $register->bindParam(2, $this->pass);
             $register->execute();
-            RedirectHandler::HTTP_301('../index.php');
+            RedirectHandler::HTTP_301('../dashboard.php');
         }else{
             echo "Mislukt";
         }
