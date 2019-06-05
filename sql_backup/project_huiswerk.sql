@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 22 mei 2019 om 14:06
+-- Gegenereerd op: 05 jun 2019 om 11:33
 -- Serverversie: 10.1.29-MariaDB
 -- PHP-versie: 7.1.12
 
@@ -31,7 +31,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `feedback` (
   `id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
   `feedback` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -44,11 +43,19 @@ CREATE TABLE `feedback` (
 CREATE TABLE `homework` (
   `id` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `homework` varchar(255) NOT NULL,
-  `subject` varchar(255) NOT NULL,
-  `deadline` datetime(6) NOT NULL,
-  `file` varchar(255) DEFAULT NULL
+  `description` varchar(255) NOT NULL,
+  `subject_id` int(9) NOT NULL,
+  `deadline` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `homework`
+--
+
+INSERT INTO `homework` (`id`, `title`, `description`, `subject_id`, `deadline`) VALUES
+('1', 'C# toets', 'C# toets voor game development (2 weken geleden oefentoets gehad).', 4, '06-06-19'),
+('2', 'Unit 4 toets', 'Leer woorden en zinnen van Unit 4.', 9, '07-06-19'),
+('3', 'H2 van Media maken', '', 6, '07-06-19');
 
 -- --------------------------------------------------------
 

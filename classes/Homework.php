@@ -10,7 +10,7 @@ class Homework
     static public function fetchHomework()
     {
         $conn = Utility::pdoConnect();
-        $data = $conn->query("select * from homework");
+        $data = $conn->query("select * from homework, subjects, teacher WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id");
         return $data;
     }
 
@@ -23,11 +23,14 @@ class Homework
                 <div class="card-group">
                     <div class="card border-dark mb-3" style="width: 36rem;">
                         <div class="card-body">
-                            <h5 class="card-title">Titel: <?= $row['title'] ?></h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Vak: <?= $row['subject'] ?></h6>
-                            <p class="card-text"><?= $row['homework'] ?></p>
-                            <h6 class="card-subtitle mb-2 text-muted">Einddatum: <?= $row['deadline'] ?></h6>
-                            <a href="#" class="card-link"><?= $row['file'] ?></a>
+                            <h3 class="card-title"><?= $row['subject_abbreviation'] . ": " . $row['title'] ?></h3>
+                            <h5 class="card-text">Beschrijving: <?= $row['description'] ?></h5>
+                            <br>
+                            <h5 class="card-subtitle mb-2">Deadline: <?= $row['deadline'] ?></h5>
+                            <hr>
+                            <p class="card-subtitle mb-2">Vak: <?= $row['subject_name'] ?></p>
+                            <p class="card-subtitle mb-2">Docent: <?= $row['teacher_name'] ?> (<?= $row['teacher_email']?>)</p>
+                 
                         </div>
                     </div>
                 </div>
