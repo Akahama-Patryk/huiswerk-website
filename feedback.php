@@ -5,7 +5,7 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $feedback = $_POST['comment'];
     $data = new Homework();
-    $send = $data->sendFeedback($name,$email,$feedback);
+    $send = $data->sendFeedback($feedback,$name,$email);
     RedirectHandler::HTTP_301('index.php');
 }
 ?>
@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="comment">Comment:</label>
                         <div class="col-sm-10">
-                            <textarea type="text" name="comment" class="form-control" rows="5" id="comment"></textarea>
+                            <textarea type="text" name="comment" class="form-control" rows="5" id="comment" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
