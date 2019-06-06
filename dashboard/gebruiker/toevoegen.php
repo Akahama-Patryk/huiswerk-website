@@ -9,6 +9,11 @@ if (isset($_POST['username'], $_POST['pass'])) {
 
     $user = new User($username, $pass);
     $user->register();
+    if ($user == true) {
+        RedirectHandler::HTTP_301('../dashboard.php');
+    } else {
+        echo "Error";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -16,7 +21,7 @@ if (isset($_POST['username'], $_POST['pass'])) {
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="../../style/Main.css">
+    <link rel="stylesheet" href="../../style/dashboard.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 </head>

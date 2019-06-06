@@ -1,12 +1,15 @@
 <?php
 include_once('classes/Autoloader.php');
 Session::start();
-$currentdate = date("Y-m-d");
+
+// define current date for data filtering.
+$current_date = date("Y-m-d");
 ?>
 <html lang="nl">
 <head>
     <title>Project Huiswerk</title>
     <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="style/Main.css">
 </head>
 <body>
 <ul class="nav nav-pills nav-fill">
@@ -17,9 +20,10 @@ $currentdate = date("Y-m-d");
         <a class="nav-link" href="feedback.php">Feedback</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="inloggen/inloggen.php">Admin Dashboard</a>
+        <a class="nav-link" href="inloggen.php">Admin Dashboard</a>
     </li>
 </ul>
-<?= Homework::displayHomework(Homework::fetchHomework($currentdate)) ?>
+<br>
+<?php Homework::displayHomework(Homework::fetch($current_date)) ?>
 </body>
 </html>

@@ -1,18 +1,15 @@
 <?php
-$subjectdata = array();
 include_once('../../classes/Autoloader.php');
 Session::start();
-$data = new Homework();
-$subjectdata = $data->fetchSubject();
-//TODO: SEND form
+$subject_data = Utility::fetchSubjects();
 if (isset($_POST['submit'])) {
     $subject = $_POST['subject'];
     $deadline = $_POST['date'];
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $create = new Homework();
-    $createHomework = $create->createHomework($title, $description,$subject, $deadline);
-//    RedirectHandler::HTTP_301('./dashboard.php');
+
+    Homework::add($title, $description,$subject, $deadline);
+    RedirectHandler::HTTP_301('../dashboard.php');
 }
 ?>
 <!DOCTYPE html>
@@ -20,7 +17,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="../style/Main.css">
+    <link rel="stylesheet" href="../../style/dashboard.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 </head>
@@ -59,7 +56,7 @@ if (isset($_POST['submit'])) {
                         <label for="subject">Vak: </label>
                         <select name="subject" required>
                             <?php
-                            foreach ($subjectdata as $data) :
+                            foreach ($subject_data as $data) :
                                 ?>
                                 <option value="<?= $data['subject_id'] ?>"><?= $data['subject_name'] ?></option>
                             <?php

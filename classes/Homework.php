@@ -1,25 +1,38 @@
 <?php
 
-
+/**
+ * Class Homework
+ */
 class Homework
 {
-    public function __construct()
-    {
-
-    }
-
-    static public function fetchHomework($currentdate)
+    /**
+     * @param $current_date
+     * @return false|PDOStatement
+     *
+     *  Fetches homework from database.
+     */
+    public static function fetch($current_date)
     {
         $conn = Utility::pdoConnect();
-        $data = $conn->query("select * from homework, subjects, teacher WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id AND homework.deadline >= '$currentdate'");
+        $data = $conn->query("select * from homework, subjects, teacher 
+WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id 
+AND homework.deadline >= $current_date ORDER BY homework.deadline ASC");
         return $data;
     }
 
+    /**
+     * @param $data
+     *
+     *  Displays homework.
+     */
     static public function displayHomework($data)
     {
         ?>
         <div class="container">
             <?php foreach ($data as $row) :
+                // convert freedom units to date.
+                $freedom_unit_date = $row['deadline'];
+                $dumb_dutch_date = date("l d-m-Y", strtotime($freedom_unit_date));
                 ?>
                 <div class="card-group">
                     <div class="card border-dark mb-3" style="width: 36rem;">
@@ -27,7 +40,7 @@ class Homework
                             <h3 class="card-title"><?= $row['subject_abbreviation'] . ": " . $row['title'] ?></h3>
                             <h5 class="card-text">Beschrijving: <?= $row['description'] ?></h5>
                             <br>
-                            <h5 class="card-subtitle mb-2">Deadline: <?= $row['deadline'] ?></h5>
+                            <h5 class="card-subtitle mb-2">Deadline: <?= $dumb_dutch_date ?></h5>
                             <hr>
                             <p class="card-subtitle mb-2">Vak: <?= $row['subject_name'] ?></p>
                             <p class="card-subtitle mb-2">Docent: <?= $row['teacher_name'] ?>
@@ -43,22 +56,16 @@ class Homework
         <?php
     }
 
-    public function sendFeedback($feedback, $name = null, $email = null)
-    {
-        if (!empty($feedback)) {
-            $conn = Utility::pdoConnect();
-            $send = $conn->prepare("INSERT INTO feedback (id, name, email, feedback) VALUES  ((SELECT UUID()), ?, ?, ?)");
-            $send->bindParam(1, $name);
-            $send->bindParam(2, $email);
-            $send->bindParam(3, $feedback);
-            $send->execute();
-            echo "Works";
-        } else {
-            echo "Error";
-        }
-    }
-
-    public function createHomework($title, $description, $subject, $deadline)
+    /**
+     * @param $title
+     * @param $description
+     * @param $subject
+     * @param $deadline
+     * @return bool
+     *
+     *  Adds homework item to database.homework .
+     */
+    public static function add($title, $description, $subject, $deadline)
     {
         if (!empty($title) && !empty($description) && !empty($subject) && !empty($deadline)) {
             $conn = Utility::pdoConnect();
@@ -68,52 +75,9 @@ class Homework
             $send->bindParam(3, $subject);
             $send->bindParam(4, $deadline);
             $send->execute();
-            echo "OK!";
+            return true;
         } else {
-            echo "Yo";
+            return false;
         }
-    }
-
-    public function fetchSubject()
-    {
-        $conn = Utility::pdoConnect();
-        $fetch = $conn->query("SELECT * FROM subjects");
-        return $fetch;
-    }
-
-    static public function getFeedback()
-    {
-        $conn = Utility::pdoConnect();
-        $data = $conn->query("select * from feedback");
-        return $data;
-    }
-
-    static public function displayFeedback($data)
-    {
-        ?>
-        <div class="container">
-            <div class='col-md-12'>
-                <form method="get">
-                    <table class='table'>
-                        <thead class='thead-light'>
-                        <tr>
-                            <th scope='col'>Naam</th>
-                            <th scope='col'>Email</th>
-                            <th scope='col'>Feedback</th>
-                        </tr>
-                        <tbody>
-                        <?php foreach ($data as $row) : ?>
-                            <tr>
-                                <td><?= $row['name'] ?></td>
-                                <td><?= $row['email'] ?></td>
-                                <td><?= $row['feedback'] ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-        </div>
-        <?php
     }
 }

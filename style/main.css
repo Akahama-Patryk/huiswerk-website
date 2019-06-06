@@ -1,5 +1,5 @@
-body{
-    background-color: rgba(129, 207, 224, 1);
+body {
+    background-image: linear-gradient(to right, #77e99f, #97dc6e, #bacc3f, #ddb60e, #ff9a00);
 }
 .contact{
     padding: 4%;

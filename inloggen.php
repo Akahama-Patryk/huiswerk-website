@@ -1,17 +1,17 @@
 <?php
-	include_once('../classes/Autoloader.php');
+	include_once('classes/Autoloader.php');
 	Session::start();
 	
 	// Redirect back to home if already logged in.
 	if(Session::loginStatus()) {
-	    RedirectHandler::HTTP_301('../dashboard/dashboard.php');
+	    RedirectHandler::HTTP_301('dashboard/dashboard.php');
     }
 ?>
     <html lang="nl">
     <head>
         <title>Huiswerk Website --Login--</title>
-        <link rel="stylesheet" href="../style/Main.css">
-        <link rel="stylesheet" type="text/css" href="../style/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="style/Main.css">
     </head>
     <body>
     <div class="card rounded-0">
@@ -30,6 +30,7 @@
                     <input type="password" class="form-control form-control-lg rounded-0" id="pass" name="pass" required
                            autocomplete="new-password" placeholder="">
                 </div>
+                <a href="index.php" class="btn btn-primary btn-lg float-left" id="btnLogin">Home</a>
                 <button type="submit" name="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Inloggen
                 </button>
             </form>
@@ -45,7 +46,13 @@
 
 	    // de wachtwoorden moeten opgeslagen zijn in de database met password_hash()
 	    
-        $user = new User($username, $pass);
-        $user->login();
+        $user_login = new User($username, $pass);
+        $user_login->login();
+
+        if ($user_login == true) {
+            RedirectHandler::HTTP_301('dashboard/dashboard.php');
+        } else {
+            echo "<h4>Username/password incorrect.</h4>";
+        }
 	}
 

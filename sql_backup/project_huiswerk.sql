@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Gegenereerd op: 05 jun 2019 om 11:33
--- Serverversie: 10.1.29-MariaDB
--- PHP-versie: 7.1.12
+-- Host: localhost:3306
+-- Gegenereerd op: 06 jun 2019 om 21:35
+-- Serverversie: 10.1.38-MariaDB
+-- PHP-versie: 7.1.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `project_huiswerk`
+-- Database: `k42791_project_huiswerk`
 --
 
 -- --------------------------------------------------------
@@ -54,9 +54,10 @@ CREATE TABLE `homework` (
 --
 
 INSERT INTO `homework` (`id`, `title`, `description`, `subject_id`, `deadline`) VALUES
-('1', 'C# toets', 'C# toets voor game development (2 weken geleden oefentoets gehad).', 4, '06-06-19'),
-('2', 'Unit 4 toets', 'Leer woorden en zinnen van Unit 4.', 9, '07-06-19'),
-('3', 'H2 van Media maken', '', 6, '07-06-19');
+('1', 'C# toets', 'C# toets voor game development (2 weken geleden oefentoets gehad).', 4, '2019-06-06'),
+('2', 'Unit 4 toets', 'Leer woorden en zinnen van Unit 4.', 9, '2019-06-07'),
+('3', 'H2 van Media maken', '', 6, '2019-06-07'),
+('4', 'Opdracht 3 normaliseren', 'ERD mailen naar meneer Wigmans. staat op https://www.tcrdocent.nl/wigmans/#Bestanden%2FNormaliseren', 1, '2019-06-07');
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,7 @@ INSERT INTO `subjects` (`subject_id`, `subject_name`, `subject_abbreviation`, `s
 (6, 'Loopbaan en Burgerschap', 'LOBUR', 1),
 (7, 'Development (van Dijk)', 'DEVEL2', 2),
 (8, 'Nederlands', 'NEDER', 5),
-(9, 'Engels', 'ENGEL', 6),
+(9, 'Engels', 'ENGLS', 6),
 (10, 'Informatie Management', 'INFMA', 8);
 
 -- --------------------------------------------------------
@@ -130,7 +131,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`) VALUES
-('1', 'admin_milan', '$2y$10$iT1koDR/4AbN7B4/dbMlSe.DfcyPsFfsO0bbYP8WCafO7R4BwPZGu');
+('1', 'admin_milan', '$2y$10$iT1koDR/4AbN7B4/dbMlSe.DfcyPsFfsO0bbYP8WCafO7R4BwPZGu'),
+('817ef60f-884f-11e9-8633-0050569e37c4', 'admin_Patryk', '$2y$10$NgzdPm9ajVurhE3zOcQjxu7WyQIDThUqO8l.6AYfNyd1nLiUwsSXS'),
+('935df259-884f-11e9-8633-0050569e37c4', 'admin_jorno', '$2y$10$UeKuIb8UNQeO7MobwZqOlu45dcxguFVt1UT8su3jasBwBpn5y9lfu');
 
 --
 -- Indexen voor geëxporteerde tabellen

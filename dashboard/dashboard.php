@@ -6,10 +6,10 @@ Session::start();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
-    <link rel="stylesheet" href="../style/Main.css">
+    <title>Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <link rel="stylesheet" type="text/css" href="../style/dashboard.css">
 </head>
 <body>
 <div class="container">
@@ -23,23 +23,19 @@ Session::start();
                 ?> <a href="../logout.php" class="btn btn-primary">Uitloggen</a> <?php
                 ?> <a href="../index.php" class="btn btn-primary">Home</a> <?php
             } else {
-                RedirectHandler::HTTP_301('../dashboard.php');
+                RedirectHandler::HTTP_301('../inloggen.php');
             }
             ?>
         </div>
         <div class="col-md-12" style="margin-top:2em;">
-            <a href="huiswerk/toevoegen.php">
-                <button class="btn btn-primary">Huiswerk Toevoegen</button>
-            </a>
-            <a href="gebruiker/toevoegen.php">
-                <button class="btn btn-primary">Gebruiker Toevoegen</button>
-            </a>
+            <a href="huiswerk/toevoegen.php" class="btn btn-primary">Huiswerk Toevoegen</a>
+            <a href="gebruiker/toevoegen.php" class="btn btn-primary">Gebruiker Toevoegen</a>
         </div>
     </div>
 </div>
 <br>
-<?= User::displayUsers(User::getUsers()) ?>
+<?php Utility::displayUsers(Utility::fetchUsers()) ?>
 <br>
-<?= Homework::displayFeedback(Homework::getFeedback()) ?>
+<?php Feedback::display(Feedback::fetch()) ?>
 </body>
 </html>

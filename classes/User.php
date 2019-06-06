@@ -49,30 +49,44 @@ class User
                     // Password verified, user has been logged in.
                     $_SESSION['login_status'] = true;
                     $_SESSION['login_user'] = $user_data['username'];
-
-                    RedirectHandler::HTTP_301('../dashboard/dashboard.php');
+                    return true;
                 } else {
-                    echo "<h4>Username/password incorrect.</h4>";
+                    return false;
                 }
             } else {
-                echo "<h4>Username/password incorrect.</h4>";
+                return false;
             }
         }
     }
 
+    /**
+     * @return bool
+     *  Registers users and encrypts password using hash
+     */
     public function register()
     {
         if (!empty($this->username) && !empty($this->pass)) {
             $conn = Utility::pdoConnect();
-            $this->pass = self::encryptPassword($this->pass);
+            $this->pass = User::encryptPassword($this->pass);
             $register = $conn->prepare("INSERT INTO user (id,username,password) VALUES  ((SELECT UUID()), ?, ?)");
             $register->bindParam(1, $this->username);
             $register->bindParam(2, $this->pass);
             $register->execute();
-            RedirectHandler::HTTP_301('../dashboard.php');
+            return true;
         } else {
-            echo "Mislukt";
+            return false;
         }
+    }
+    /**
+     * @param $pass
+     * @return mixed
+     *
+     * Encrypts passwords.
+     */
+    public static function EncryptPassword($pass)
+    {
+        $hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
+        return $hashed_pass;
     }
 
     /**
@@ -82,61 +96,12 @@ class User
      *
      * Verifies encrypted passwords.
      */
-    public
-    static function verifyEncryptedPassword($pass, $hashed_pass)
+    public static function VerifyEncryptedPassword($pass, $hashed_pass)
     {
         if (password_verify($pass, $hashed_pass)) {
             return true;
         } else {
             return false;
         }
-    }
-
-    public static function encryptPassword($pass)
-    {
-        $hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
-        return $hashed_pass;
-    }
-
-    static public function getUsers()
-    {
-        $conn = Utility::pdoConnect();
-        $data = $conn->query("select * from user");
-        return $data;
-    }
-
-    static public function displayUsers($data)
-    {
-        ?>
-        <div class="container">
-            <div class='col-md-12'>
-                <form method="get">
-                    <table class='table'>
-                        <thead class='thead-light'>
-                        <tr>
-                            <th scope='col'>Gebruikers naam</th>
-                            <th scope='col'>Gebruikers wachtwoord</th>
-                            <th scope='col'>Gebruiker wijzig</th>
-                            <th scope='col'>Gebruiker verwijder</th>
-                        </tr>
-                        <tbody>
-                        <?php foreach ($data as $row) : ?>
-                            <tr>
-                                <td><?= $row['username'] ?></td>
-                                <td><?= $row['password'] ?></td>
-                                <td><a href="<?= $row['id'] ?>">
-                                        Wijzig
-                                    </a></td>
-                                <td><a href="<?= $row['id'] ?>">
-                                        Verwijder
-                                    </a></td>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-        </div>
-        <?php
     }
 }
