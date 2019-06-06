@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
 <head>
     <title>Feedback</title>
     <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="style/Main.css">
+    <link rel="stylesheet" type="text/css" href="style/main.css">
 </head>
 <body>
 <ul class="nav nav-pills nav-fill">

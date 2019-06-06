@@ -11,7 +11,7 @@
     <head>
         <title>Huiswerk Website --Login--</title>
         <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="style/Main.css">
+        <link rel="stylesheet" type="text/css" href="style/main.css">
     </head>
     <body>
     <div class="card rounded-0">
