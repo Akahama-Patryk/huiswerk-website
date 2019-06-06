@@ -1,11 +1,12 @@
 <?php
-	include_once('classes/Autoloader.php');
-	Session::start();
+include_once('classes/Autoloader.php');
+Session::start();
+$currentdate = date("Y-m-d");
 ?>
 <html lang="nl">
 <head>
-	<title>Project Huiswerk</title>
-	<link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+    <title>Project Huiswerk</title>
+    <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
 </head>
 <body>
 <ul class="nav nav-pills nav-fill">
@@ -19,6 +20,6 @@
         <a class="nav-link" href="inloggen/inloggen.php">Admin Dashboard</a>
     </li>
 </ul>
-<?=Homework::displayHomework(Homework::fetchHomework())?>
+<?= Homework::displayHomework(Homework::fetchHomework($currentdate)) ?>
 </body>
 </html>

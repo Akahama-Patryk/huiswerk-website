@@ -8,10 +8,10 @@ class Homework
 
     }
 
-    static public function fetchHomework()
+    static public function fetchHomework($currentdate)
     {
         $conn = Utility::pdoConnect();
-        $data = $conn->query("select * from homework, subjects, teacher WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id");
+        $data = $conn->query("select * from homework, subjects, teacher WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id AND homework.deadline >= '$currentdate'");
         return $data;
     }
 
