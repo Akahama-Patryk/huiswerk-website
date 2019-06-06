@@ -38,6 +38,8 @@ Session::start();
     </div>
 </div>
 <br>
-<?= User::displayUsers(User::getUsers())?>
+<?= User::displayUsers(User::getUsers()) ?>
+<br>
+<?= Homework::displayFeedback(Homework::getFeedback()) ?>
 </body>
 </html>

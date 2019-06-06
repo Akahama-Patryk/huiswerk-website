@@ -80,4 +80,40 @@ class Homework
         $fetch = $conn->query("SELECT * FROM subjects");
         return $fetch;
     }
+
+    static public function getFeedback()
+    {
+        $conn = Utility::pdoConnect();
+        $data = $conn->query("select * from feedback");
+        return $data;
+    }
+
+    static public function displayFeedback($data)
+    {
+        ?>
+        <div class="container">
+            <div class='col-md-12'>
+                <form method="get">
+                    <table class='table'>
+                        <thead class='thead-light'>
+                        <tr>
+                            <th scope='col'>Naam</th>
+                            <th scope='col'>Email</th>
+                            <th scope='col'>Feedback</th>
+                        </tr>
+                        <tbody>
+                        <?php foreach ($data as $row) : ?>
+                            <tr>
+                                <td><?= $row['name'] ?></td>
+                                <td><?= $row['email'] ?></td>
+                                <td><?= $row['feedback'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
 }
