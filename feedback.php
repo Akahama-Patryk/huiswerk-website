@@ -3,7 +3,7 @@ include_once('classes/Autoloader.php');
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $feedback = $_POST['comment'];
+    $feedback = $_POST['feedback_text'];
     Feedback::send($feedback, $name, $email);
     if (Feedback::send($feedback, $name, $email) == true) {
         RedirectHandler::HTTP_301('index.php');
@@ -55,15 +55,15 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-4" for="comment">Comment:</label>
+                        <label class="control-label col-sm-4" for="comment">Feedback:</label>
                         <div class="col-md-10">
-                            <textarea type="text" name="feedback" class="form-control" rows="5" id="comment"
+                            <textarea type="text" name="feedback_text" class="form-control" rows="5" id="comment"
                                       required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <button type="submit" name="submit" class="btn btn-default">Feedback verzenden</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Feedback verzenden</button>
                         </div>
                     </div>
                 </div>
