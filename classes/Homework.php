@@ -16,7 +16,7 @@ class Homework
         $conn = Utility::pdoConnect();
         $data = $conn->query("select * from homework, subjects, teacher 
 WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id 
-AND homework.deadline >= $current_date ORDER BY homework.deadline ASC");
+AND homework.deadline >= '$current_date' ORDER BY homework.deadline ASC");
         return $data;
     }
 
