@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="form-group">
                         <label for="date">Deadline: </label>
-                        <input type="date" name="date" value="date" required>
+                        <input min="<?= date("Y-m-d") ?>"type="date" name="date" value="date" required>
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary">Stuur</button>
             </form>

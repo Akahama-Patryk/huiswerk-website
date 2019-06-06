@@ -57,6 +57,7 @@ class User
                 return false;
             }
         }
+        return false;
     }
 
     /**

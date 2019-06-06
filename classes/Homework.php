@@ -7,17 +7,20 @@ class Homework
 {
     /**
      * @param $current_date
-     * @return false|PDOStatement
+     * @return array
      *
      *  Fetches homework from database.
      */
     public static function fetch($current_date)
     {
         $conn = Utility::pdoConnect();
-        $data = $conn->query("select * from homework, subjects, teacher 
+
+        $data = $conn->prepare("select * from homework, subjects, teacher 
 WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id 
-AND homework.deadline >= $current_date ORDER BY homework.deadline ASC");
-        return $data;
+AND homework.deadline >= :date ORDER BY homework.deadline ASC");
+        $data->bindParam(':date', $current_date);
+        $data->execute();
+        return $data->fetchAll();
     }
 
     /**
@@ -28,31 +31,33 @@ AND homework.deadline >= $current_date ORDER BY homework.deadline ASC");
     static public function displayHomework($data)
     {
         ?>
-        <div class="container">
-            <?php foreach ($data as $row) :
-                // convert freedom units to date.
-                $freedom_unit_date = $row['deadline'];
-                $dumb_dutch_date = date("l d-m-Y", strtotime($freedom_unit_date));
-                ?>
-                <div class="card-group">
-                    <div class="card border-dark mb-3" style="width: 36rem;">
-                        <div class="card-body">
-                            <h3 class="card-title"><?= $row['subject_abbreviation'] . ": " . $row['title'] ?></h3>
-                            <h5 class="card-text">Beschrijving: <?= $row['description'] ?></h5>
-                            <br>
-                            <h5 class="card-subtitle mb-2">Deadline: <?= $dumb_dutch_date ?></h5>
-                            <hr>
-                            <p class="card-subtitle mb-2">Vak: <?= $row['subject_name'] ?></p>
-                            <p class="card-subtitle mb-2">Docent: <?= $row['teacher_name'] ?>
-                                (<?= $row['teacher_email'] ?>)</p>
 
-                        </div>
+        <?php foreach ($data as $row) :
+        // Set locale to dutch for date.
+        setlocale(LC_TIME, 'NL_nl');
+        ?>
+        <div class="col-lg-12">
+            <div class="card-group">
+                <div class="card border-dark mb-3" style="min-width: 36rem;">
+                    <div class="card-body">
+                        <h3 class="card-title"><?= $row['subject_abbreviation'] . ": " . $row['title'] ?></h3>
+                        <h5 class="card-text">Beschrijving: <?= $row['description'] ?></h5>
+                        <br>
+                        <h5 class="card-subtitle mb-2">Deadline: <?= strftime("%A %d-%m-%G",
+                                strtotime($row['deadline'])) ?></h5>
+                        <hr>
+                        <p class="card-subtitle mb-2">Vak: <?= $row['subject_name'] ?></p>
+                        <p class="card-subtitle mb-2">Docent: <?= $row['teacher_name'] ?>
+                            (<?= $row['teacher_email'] ?>)</p>
+
                     </div>
                 </div>
-            <?php
-            endforeach;
-            ?>
+            </div>
         </div>
+    <?php
+    endforeach;
+        ?>
+
         <?php
     }
 

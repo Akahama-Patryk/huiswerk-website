@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     if (Feedback::send($feedback, $name, $email) == true) {
         RedirectHandler::HTTP_301('index.php');
     } else {
-        echo "Error";
+        echo "Sending feedback failed.";
     }
 
 }

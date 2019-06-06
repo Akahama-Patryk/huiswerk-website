@@ -1,9 +1,10 @@
 <?php
 include_once('classes/Autoloader.php');
 Session::start();
-
-// define current date for data filtering.
-$current_date = date("Y-m-d");
+// Get current date for filter.
+$current_date_filter = date("Y-m-d");
+// Set locale to dutch for date.
+setlocale(LC_TIME, 'NL_nl');
 ?>
 <html lang="nl">
 <head>
@@ -24,6 +25,10 @@ $current_date = date("Y-m-d");
     </li>
 </ul>
 <br>
-<?php Homework::displayHomework(Homework::fetch($current_date)) ?>
+<div class="container">
+    <div class="row">
+        <?php Homework::displayHomework(Homework::fetch($current_date_filter)); ?>
+    </div>
+</div>
 </body>
 </html>

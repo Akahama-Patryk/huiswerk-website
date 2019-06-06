@@ -52,7 +52,7 @@
         if ($user_login == true) {
             RedirectHandler::HTTP_301('dashboard/dashboard.php');
         } else {
-            echo "<h4>Username/password incorrect.</h4>";
+            echo "Verkeerde gebruikersnaam/wachtwoord combinatie.";
         }
 	}
 
