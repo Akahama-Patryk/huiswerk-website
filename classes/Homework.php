@@ -6,21 +6,40 @@
 class Homework
 {
     /**
-     * @param $current_date
+     * @param null $current_date
+     * @param null $id
      * @return array
      *
-     *  Fetches homework from database.
+     * Fetches homework from database.
      */
-    public static function fetch($current_date)
+    public static function fetch($current_date = null, $id = null)
     {
-        $conn = Utility::pdoConnect();
-
-        $data = $conn->prepare("select * from homework, subjects, teacher 
+        if (!empty($id)) {
+            $conn = Utility::pdoConnect();
+            $data = $conn->prepare("select * from homework, subjects, teacher 
+WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id 
+AND homework.id = :id");
+            $data->bindParam(':id', $id);
+            $data->execute();
+            return $data->fetchAll();
+        } else {
+            if (!empty($current_date)) {
+                $conn = Utility::pdoConnect();
+                $data = $conn->prepare("select * from homework, subjects, teacher 
 WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id 
 AND homework.deadline >= :date ORDER BY homework.deadline ASC");
-        $data->bindParam(':date', $current_date);
-        $data->execute();
-        return $data->fetchAll();
+                $data->bindParam(':date', $current_date);
+                $data->execute();
+                return $data->fetchAll();
+            } else {
+                $conn = Utility::pdoConnect();
+                $data = $conn->prepare("select * from homework, subjects, teacher
+WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id
+ORDER BY homework.deadline ASC");
+                $data->execute();
+                return $data->fetchAll();
+            }
+        }
     }
 
     /**
@@ -62,6 +81,61 @@ AND homework.deadline >= :date ORDER BY homework.deadline ASC");
     }
 
     /**
+     * @param $data
+     */
+
+    static public function displayAdminHomework($data)
+    {
+        ?>
+        <div class="container">
+            <div class='col-md-12'>
+                <form method="GET" action="">
+                    <table class='table'>
+                        <thead class='thead-light'>
+                        <tr>
+                            <th scope='col'>Titel van huiswerk</th>
+                            <th scope='col'>Omschrijving van huiswerk</th>
+                            <th scope='col'>Vak</th>
+                            <th scope='col'>Deadline</th>
+                            <th scope='col'>Update</th>
+                            <th scope='col'>Delete</th>
+                        </tr>
+                        <tbody>
+                        <?php foreach ($data as $row) : ?>
+                            <tr>
+                                <td><?= $row['title'] ?></td>
+                                <td><?= $row['description'] ?></td>
+                                <td><?= $row['subject_name'] ?></td>
+                                <td><?= $row['deadline'] ?></td>
+                                <td><a href="huiswerk/wijzig.php?id=<?= $row['id'] ?>">
+                                        Wijzig
+                                    </a></td>
+                                <td><a href="?id=<?= $row['id'] ?>">
+                                        Verwijder
+                                    </a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+
+    static public function deleteHomework($id)
+    {
+        if (!empty($id)) {
+            $conn = Utility::pdoConnect();
+            $del = $conn->prepare("DELETE FROM homework WHERE homework.id = ?;");
+            $del->bindParam(1, $id);
+            $del->execute();
+        } else {
+            http_response_code(405);
+        }
+    }
+
+    /**
      * @param $title
      * @param $description
      * @param $subject
@@ -82,6 +156,23 @@ AND homework.deadline >= :date ORDER BY homework.deadline ASC");
             $send->execute();
             return true;
         } else {
+            return false;
+        }
+    }
+
+    public static function update($id,$title,$description,$subject,$deadline)
+    {
+        if (!empty($id) && !empty($title) && !empty($description) && !empty($subject) && !empty($deadline)){
+            $conn = Utility::pdoConnect();
+            $send = $conn->prepare("Update homework set title = ?, description = ?, subject_id = ?, deadline = ? where id = ?;");
+            $send->bindParam(5, $id);
+            $send->bindParam(1, $title);
+            $send->bindParam(2, $description);
+            $send->bindParam(3, $subject);
+            $send->bindParam(4, $deadline);
+            $send->execute();
+            return true;
+        }else{
             return false;
         }
     }
