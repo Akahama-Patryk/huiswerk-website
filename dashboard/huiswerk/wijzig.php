@@ -7,20 +7,20 @@ foreach ($homework_data as $subject_current) {
     $subject_default = $subject_current['subject_id'];
     $subject_data = Utility::fetchSubjects();
     if (isset($_POST['submit'])) {
-        if (isset($_POST['subject'])){
+        if (isset($_POST['subject'])) {
             $id = $_GET['id'];
             $subject = $_POST['subject'];
             $deadline = $_POST['date'];
             $title = $_POST['title'];
             $description = $_POST['description'];
-            Homework::update($id,$title,$description,$subject,$deadline);
+            Homework::update($id, $title, $description, $subject, $deadline);
             RedirectHandler::HTTP_301('../dashboard.php');
-        }else{
+        } else {
             $id = $_GET['id'];
             $deadline = $_POST['date'];
             $title = $_POST['title'];
             $description = $_POST['description'];
-            Homework::update($id,$title,$description,$subject_default,$deadline);
+            Homework::update($id, $title, $description, $subject_default, $deadline);
             RedirectHandler::HTTP_301('../dashboard.php');
         }
     }
@@ -76,7 +76,7 @@ foreach ($homework_data as $subject_current) {
                     <div class="form-group">
                         <label for="subject">Vak: </label>
                         <select name="subject" required>
-                            <option value="<?= $row["subject_id"] ?>" disabled
+                            <option value="<?= $row["subject_id"] ?>"
                                     selected><?= $row["subject_name"] ?></option>
                             <?php
                             foreach ($subject_data as $data) :
