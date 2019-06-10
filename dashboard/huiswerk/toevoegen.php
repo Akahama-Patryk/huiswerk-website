@@ -3,7 +3,6 @@ include_once('../../classes/Autoloader.php');
 Session::start();
 $subject_data = Utility::fetchSubjects();
 if (isset($_POST['submit'])) {
-    var_dump($_POST);
 
     $subject = $_POST['subject'];
     $deadline = $_POST['date'];
@@ -11,7 +10,7 @@ if (isset($_POST['submit'])) {
     $description = $_POST['description'];
 
     Homework::add($title, $description,$subject, $deadline);
-//    RedirectHandler::HTTP_301('../dashboard.php');
+    RedirectHandler::HTTP_301('../dashboard.php');
 }
 ?>
 <!DOCTYPE html>
