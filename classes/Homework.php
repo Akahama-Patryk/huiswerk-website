@@ -55,12 +55,12 @@ ORDER BY homework.deadline ASC");
         // Set locale to dutch for date.
         setlocale(LC_TIME, 'NL_nl');
         ?>
-        <div class="col-lg-12">
-            <div class="card-group">
+        <div class="col-lg-12" xmlns:max-height="http://www.w3.org/1999/xhtml">
+            <div class="card-group style="max-height:12em;"">
                 <div class="card border-dark mb-3" style="min-width: 36rem;">
                     <div class="card-body">
                         <h3 class="card-title"><?= $row['subject_abbreviation'] . ": " . $row['title'] ?></h3>
-                        <h5 class="card-text">Beschrijving: <?= $row['description'] ?></h5>
+                        <h5 class="card-text" style="max-height:8em;">Beschrijving: <?= $row['description'] ?></h5>
                         <br>
                         <h5 class="card-subtitle mb-2">Deadline: <?= strftime("%A %d-%m-%G",
                                 strtotime($row['deadline'])) ?></h5>
