@@ -58,7 +58,7 @@
                     <div class="form-group">
                         <label for="subject">Vak: </label>
                         <select name="subject" required>
-                            <option selected disabled> -- Kies een vak --</option>
+                            <option value="" selected disabled> -- Kies een vak --</option>
 							<?php
 								foreach ($subject_data as $data) :
 									?>
