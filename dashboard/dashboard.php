@@ -44,6 +44,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 <br>
 <?php Feedback::display(Feedback::fetch()) ?>
 <br>
-<?php Homework::displayAdminHomework(Homework::fetch("ASC", true))?>
+<?php Homework::displayAdminHomework(Homework::fetch("DESC", true))?>
 </body>
 </html>
