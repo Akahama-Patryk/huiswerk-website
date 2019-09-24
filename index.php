@@ -1,10 +1,6 @@
 <?php
-include_once('classes/Autoloader.php');
-Session::start();
-// Get current date for filter.
-$current_date_filter = date("Y-m-d");
-// Set locale to dutch for date.
-setlocale(LC_TIME, 'NL_nl');
+	include_once('classes/Autoloader.php');
+	Session::start();
 ?>
 <html lang="nl">
 <head>
@@ -27,7 +23,7 @@ setlocale(LC_TIME, 'NL_nl');
 <br>
 <div class="container">
     <div class="row">
-        <?php Homework::displayHomework(Homework::fetch($current_date_filter)); ?>
+		<?php Homework::displayHomework(Homework::fetch("ASC", false)); ?>
     </div>
 </div>
 </body>

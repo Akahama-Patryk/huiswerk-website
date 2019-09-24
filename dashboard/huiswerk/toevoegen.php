@@ -1,17 +1,17 @@
 <?php
-include_once('../../classes/Autoloader.php');
-Session::start();
-$subject_data = Utility::fetchSubjects();
-if (isset($_POST['submit'])) {
-
-    $subject = $_POST['subject'];
-    $deadline = $_POST['date'];
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-
-    Homework::add($title, $description,$subject, $deadline);
-    RedirectHandler::HTTP_301('../dashboard.php');
-}
+	include_once('../../classes/Autoloader.php');
+	Session::start();
+	$subject_data = Utility::fetchSubjects();
+	if (isset($_POST['submit'])) {
+		
+		$subject = $_POST['subject'];
+		$deadline = $_POST['date'];
+		$title = $_POST['title'];
+		$description = $_POST['description'];
+		
+		Homework::add($title, $description, $subject, $deadline);
+		RedirectHandler::HTTP_301('../dashboard.php');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,14 +29,14 @@ if (isset($_POST['submit'])) {
             <h2>Huiswerk toevoegen</h2>
         </div>
         <div class="col-md-4 text-right">
-            <?php
-            if (Session::loginStatus()) {
-                ?> <a href="../../logout.php" class="btn btn-primary">Uitloggen</a> <?php
-                ?> <a href="../../index.php" class="btn btn-primary">Home</a> <?php
-            } else {
-                RedirectHandler::HTTP_301('../../dashboard.php');
-            }
-            ?>
+			<?php
+				if (Session::loginStatus()) {
+					?> <a href="../../logout.php" class="btn btn-primary">Uitloggen</a> <?php
+					?> <a href="../../index.php" class="btn btn-primary">Home</a> <?php
+				} else {
+					RedirectHandler::HTTP_301('../../dashboard.php');
+				}
+			?>
         </div>
         <div class="col-md-12" style="margin-top:2em;">
             <form method="post">
@@ -44,30 +44,37 @@ if (isset($_POST['submit'])) {
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="name">Titel: </label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" placeholder="Typ hier een titel" name="title" required>
+                            <input type="text" class="form-control" id="name" placeholder="Typ hier een titel"
+                                   name="title" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="description">Description: </label>
+                        <label class="control-label col-sm-4" for="description">Beschrijving/link: </label>
                         <div class="col-sm-10">
-                            <textarea type="text" name="description" class="form-control" rows="5" id="description" required></textarea>
+                            <textarea type="text" name="description" class="form-control" rows="5"
+                                      id="description"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="subject">Vak: </label>
                         <select name="subject" required>
-                            <?php
-                            foreach ($subject_data as $data) :
-                                ?>
-                                <option value="<?= $data['subject_id'] ?>"><?= $data['subject_name'] ?></option>
-                            <?php
-                            endforeach;
-                            ?>
+                            <option selected disabled> -- Kies een vak --</option>
+							<?php
+								foreach ($subject_data as $data) :
+									?>
+                                    <option value="<?= $data['subject_id'] ?>"><?= $data['subject_name'] ?></option>
+								<?php
+								endforeach;
+							?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="date">Deadline: </label>
-                        <input min="<?= date("Y-m-d") ?>"type="date" name="date" value="date" required>
+                        <input min="<?= date("Y-m-d") ?>" type="date" name="date" value="date" required>
+                        <?PHP
+                        // TODO gebruik dit nadat je de filter aanpast.
+//                        <small class="form-text">Let op: item zal zichtbaar zijn t/m 1 week na deadline</small>
+                        ?>
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary">Stuur</button>
             </form>

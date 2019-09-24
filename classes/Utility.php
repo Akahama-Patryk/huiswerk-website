@@ -86,4 +86,14 @@ class Utility
         </div>
         <?php
     }
+    
+    public static function fetchCurrentDateTime()
+    {
+	    // Set locale to dutch for date.
+	    setlocale(LC_TIME, 'NL_nl');
+	    // Get current date for filter.
+	    $current_date_filter = date("Y-m-d");
+	    
+	    return $current_date_filter;
+    }
 }
