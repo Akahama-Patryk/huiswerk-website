@@ -10,29 +10,41 @@
 		 *  string ASC/DESC in SQL.
 		 * @param $show_old_data
 		 *  bool If the SQL fetch should fetch older data.
+		 * @param null $id
+		 *  int Used in dashboard "huiswerk wijzigen".
 		 * @return array
 		 *
 		 * Fetches homework from database.
 		 */
-		public static function fetch($order = "ASC", $show_old_data = true)
+		public static function fetch($order = "ASC", $show_old_data = true, $id = null)
 		{
 			$current_date = Utility::fetchCurrentDateTime();
 			
-			if ($show_old_data == false) {
-				$conn = Utility::pdoConnect();
-				$data = $conn->prepare("select * from homework, subjects, teacher
-WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id 
-AND homework.deadline >= :date ORDER BY homework.deadline $order");
-				$data->bindParam(':date', $current_date);
-				$data->execute();
-				return $data->fetchAll();
-			} else {
+			if (!empty($id)) {
 				$conn = Utility::pdoConnect();
 				$data = $conn->prepare("select * from homework, subjects, teacher
 WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id
-ORDER BY homework.deadline $order");
+AND homework.id = :id");
+				$data->bindParam(':id', $id);
 				$data->execute();
 				return $data->fetchAll();
+			} else {
+				if ($show_old_data == false) {
+					$conn = Utility::pdoConnect();
+					$data = $conn->prepare("select * from homework, subjects, teacher
+WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id
+AND homework.deadline >= :date ORDER BY homework.deadline $order");
+					$data->bindParam(':date', $current_date);
+					$data->execute();
+					return $data->fetchAll();
+				} else {
+					$conn = Utility::pdoConnect();
+					$data = $conn->prepare("select * from homework, subjects, teacher
+WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id
+ORDER BY homework.deadline $order");
+					$data->execute();
+					return $data->fetchAll();
+				}
 			}
 		}
 		
@@ -41,7 +53,7 @@ ORDER BY homework.deadline $order");
 		 *
 		 *  Displays homework.
 		 */
-		static public function displayHomework($data)
+		public static function displayHomework($data)
 		{
 			?>
 			
@@ -160,11 +172,11 @@ ORDER BY homework.deadline $order");
 			if (!empty($id) && !empty($title) && !empty($description) && !empty($subject) && !empty($deadline)) {
 				$conn = Utility::pdoConnect();
 				$send = $conn->prepare("Update homework set title = ?, description = ?, subject_id = ?, deadline = ? where id = ?;");
-				$send->bindParam(5, $id);
 				$send->bindParam(1, $title);
 				$send->bindParam(2, $description);
 				$send->bindParam(3, $subject);
 				$send->bindParam(4, $deadline);
+				$send->bindParam(5, $id);
 				$send->execute();
 				return true;
 			} else {

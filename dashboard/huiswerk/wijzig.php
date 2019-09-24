@@ -1,7 +1,7 @@
 <?php
 include_once('../../classes/Autoloader.php');
 Session::start();
-$homework_data = Homework::fetch(null, $_GET['id']);
+$homework_data = Homework::fetch("ASC", true, $_GET['id']);
 $subject_default = null;
 foreach ($homework_data as $subject_current) {
     $subject_default = $subject_current['subject_id'];
@@ -94,6 +94,7 @@ foreach ($homework_data as $subject_current) {
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary">Stuur</button>
                     <?php endforeach; ?>
+                </div>
             </form>
         </div>
     </div>
