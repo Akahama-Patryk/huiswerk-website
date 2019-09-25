@@ -153,7 +153,7 @@ ORDER BY homework.deadline $order");
 		 */
 		public static function add($title, $description, $subject, $deadline)
 		{
-			if (!empty($title) && !empty($description) && !empty($subject) && !empty($deadline)) {
+			if (!empty($title) && !empty($subject) && !empty($deadline)) {
 				$conn = Utility::pdoConnect();
 				$send = $conn->prepare("INSERT INTO homework (id, title, description, subject_id, deadline) VALUES  ((SELECT UUID()), ?, ?, ?, ?)");
 				$send->bindParam(1, $title);
@@ -169,7 +169,7 @@ ORDER BY homework.deadline $order");
 		
 		public static function update($id, $title, $description, $subject, $deadline)
 		{
-			if (!empty($id) && !empty($title) && !empty($description) && !empty($subject) && !empty($deadline)) {
+			if (!empty($id) && !empty($title) && !empty($subject) && !empty($deadline)) {
 				$conn = Utility::pdoConnect();
 				$send = $conn->prepare("Update homework set title = ?, description = ?, subject_id = ?, deadline = ? where id = ?;");
 				$send->bindParam(1, $title);
