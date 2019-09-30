@@ -25,8 +25,8 @@
 		static public function display($data)
 		{
 			?>
-            <form method="get">
-                <table class='table'>
+            <div class="table-responsive">
+                <table class='table table-sm'>
                     <thead class='thead-light'>
                     <tr>
                         <th scope='col'>Naam</th>
@@ -35,7 +35,7 @@
                         <th scope='col'>Verwijder</th>
                     </tr>
                     <tbody>
-					<?php foreach ($data as $row) : ?>
+		            <?php foreach ($data as $row) : ?>
                         <tr>
                             <td><?= $row['name'] ?></td>
                             <td><?= $row['email'] ?></td>
@@ -43,10 +43,10 @@
                             <td><a href="dashboardhandler.php?feedback_del_id=<?= $row['id'] ?>">
                                     <i class="fas fa-times"></i>
                         </tr>
-					<?php endforeach; ?>
+		            <?php endforeach; ?>
                     </tbody>
                 </table>
-            </form>
+            </div>
 			<?php
 		}
 		

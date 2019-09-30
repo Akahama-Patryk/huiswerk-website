@@ -17,3 +17,11 @@
 	} else {
 		http_response_code(405);
 	}
+	
+	if (isset($_GET['feedback_del_id']) && !empty($_GET['feedback_del_id'])) {
+		Utility::deleteRow("feedback", "id", $_GET['feedback_del_id']);
+		echo "Successful Delete";
+		RedirectHandler::HTTP_301("dashboard.php");
+	} else {
+		http_response_code(405);
+	}

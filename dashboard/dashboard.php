@@ -1,12 +1,6 @@
 <?php
 	include_once('../classes/Autoloader.php');
 	Session::start();
-//	if (isset($_GET['id']) && !empty($_GET['id'])) {
-//		Homework::deleteHomework($_GET['id']);
-//		echo "Successful Delete";
-//	} else {
-//		http_response_code(405);
-//	}
 ?>
 <!DOCTYPE html>
 <html lang="en">

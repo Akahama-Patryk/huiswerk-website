@@ -76,7 +76,7 @@
 //                        <small class="form-text">Let op: item zal zichtbaar zijn t/m 1 week na deadline</small>
                         ?>
                     </div>
-                    <button type="submit" name="submit" class="btn btn-primary">Stuur</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Bevestig</button>
             </form>
         </div>
     </div>

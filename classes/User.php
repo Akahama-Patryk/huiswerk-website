@@ -81,14 +81,14 @@
 		
 		/**
 		 * @param $user_id
-         *  int User id.
-         *
-         * Removes user from user table in database.
+		 *  int User id.
+		 *
+		 * Removes user from user table in database.
 		 */
 		public function remove($user_id)
-        {
-        
-        }
+		{
+		
+		}
 		
 		/**
 		 * @param $pass
@@ -138,12 +138,11 @@
 		public static function displayUsers($data)
 		{
 			?>
-            <form method="get">
-                <table class='table'>
+            <div class="table-responsive">
+                <table class='table table-sm'>
                     <thead class='thead-light'>
                     <tr>
                         <th scope='col'>Naam</th>
-                        <th scope='col'>Wachtwoord</th>
                         <th scope='col'>Wijzig</th>
                         <th scope='col'>Verwijder</th>
                     </tr>
@@ -151,7 +150,6 @@
 					<?php foreach ($data as $row) : ?>
                         <tr>
                             <td><?= $row['username'] ?></td>
-                            <td><?= $row['password'] ?></td>
                             <td><a href="gebruiker/wijzigen.php<?= $row['id'] ?>">
                                     <i class="far fa-edit"></i>
                                 </a></td>
@@ -162,7 +160,7 @@
 					<?php endforeach; ?>
                     </tbody>
                 </table>
-            </form>
+            </div>
 			<?php
 		}
 	}

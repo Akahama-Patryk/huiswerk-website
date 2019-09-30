@@ -46,19 +46,19 @@ if (isset($_POST['username'], $_POST['pass'])) {
                 <div class="card-body bg-light">
                     <form class="form" role="form" id="formRegister" method="POST">
                         <div class="form-group">
-                            <label for="username">Username</label>
+                            <label for="username">Gebruikersnaam</label>
                             <input type="text" class="form-control form-control-lg rounded-0" name="username" id="user"
                                    required
                                    placeholder="">
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
+                            <label>Wachtwoord</label>
                             <input type="password" class="form-control form-control-lg rounded-0" id="pass" name="pass"
                                    required
                                    autocomplete="new-password" placeholder="">
                         </div>
                         <button type="submit" name="submit" class="btn btn-success btn-lg float-right" id="btnLogin">
-                            Registeer
+                            Bevestig
                         </button>
                     </form>
                 </div>

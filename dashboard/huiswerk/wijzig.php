@@ -92,7 +92,7 @@
                         <input min="<?= date("Y-m-d") ?>" type="date" name="date" value="<?= $row['deadline'] ?>"
                                required>
                     </div>
-                    <button type="submit" name="submit" class="btn btn-primary">Stuur</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Bevestig</button>
 					<?php endforeach; ?>
                 </div>
             </form>

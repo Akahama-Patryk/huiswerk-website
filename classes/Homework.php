@@ -50,6 +50,7 @@ ORDER BY homework.deadline $order");
 		
 		/**
 		 * @param $data
+		 *  mixed array Array containing data.
 		 *
 		 *  Displays homework.
 		 */
@@ -86,13 +87,15 @@ ORDER BY homework.deadline $order");
 		
 		/**
 		 * @param $data
+		 *  mixed array Array containing data.
+		 *
+		 * Displays homework including edit/delete buttons per row.
 		 */
-		
 		static public function displayAdminHomework($data)
 		{
 			?>
-            <form method="GET" action="">
-                <table class='table'>
+            <div class="table-responsive">
+                <table class='table table-sm'>
                     <thead class='thead-light'>
                     <tr>
                         <th scope='col'>Titel</th>
@@ -119,15 +122,19 @@ ORDER BY homework.deadline $order");
 					<?php endforeach; ?>
                     </tbody>
                 </table>
-            </form>
+            </div>
 			<?php
 		}
 		
 		/**
 		 * @param $title
+		 *  string Homework title.
 		 * @param $description
+		 *  string Homework description.
 		 * @param $subject
+		 *  string Homework subject.
 		 * @param $deadline
+		 *  string Date/time of deadline.
 		 * @return bool
 		 *
 		 *  Adds homework item to database.homework .
@@ -148,6 +155,21 @@ ORDER BY homework.deadline $order");
 			}
 		}
 		
+		/**
+		 * @param $id
+		 *  int Homework id.
+		 * @param $title
+		 *  string Homework title.
+		 * @param $description
+		 *  string Homework description.
+		 * @param $subject
+		 *  string Homework subject.
+		 * @param $deadline
+		 *  string Date/time of deadline.
+		 * @return bool
+		 *
+		 * Updates specified homework row.
+		 */
 		public static function update($id, $title, $description, $subject, $deadline)
 		{
 			if (!empty($id) && !empty($title) && !empty($subject) && !empty($deadline)) {
