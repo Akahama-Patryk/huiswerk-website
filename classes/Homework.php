@@ -56,10 +56,7 @@ ORDER BY homework.deadline $order");
 		public static function displayHomework($data)
 		{
 			?>
-			
 			<?php foreach ($data as $row) :
-			// Set locale to dutch for date.
-			setlocale(LC_TIME, 'NL_nl');
 			?>
             <div class="col-lg-12" xmlns:max-height="http://www.w3.org/1999/xhtml">
                 <div class="card-group style=" max-height:12em;
@@ -94,52 +91,36 @@ ORDER BY homework.deadline $order");
 		static public function displayAdminHomework($data)
 		{
 			?>
-            <div class="container">
-                <div class='col-md-12'>
-                    <form method="GET" action="">
-                        <table class='table'>
-                            <thead class='thead-light'>
-                            <tr>
-                                <th scope='col'>Titel van huiswerk</th>
-                                <th scope='col'>Omschrijving van huiswerk</th>
-                                <th scope='col'>Vak</th>
-                                <th scope='col'>Deadline</th>
-                                <th scope='col'>Update</th>
-                                <th scope='col'>Delete</th>
-                            </tr>
-                            <tbody>
-							<?php foreach ($data as $row) : ?>
-                                <tr>
-                                    <td><?= $row['title'] ?></td>
-                                    <td><?= $row['description'] ?></td>
-                                    <td><?= $row['subject_name'] ?></td>
-                                    <td><?= $row['deadline'] ?></td>
-                                    <td><a href="huiswerk/wijzig.php?id=<?= $row['id'] ?>">
-                                            Wijzig
-                                        </a></td>
-                                    <td><a href="?id=<?= $row['id'] ?>">
-                                            Verwijder
-                                        </a></td>
-                                </tr>
-							<?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-            </div>
+            <form method="GET" action="">
+                <table class='table'>
+                    <thead class='thead-light'>
+                    <tr>
+                        <th scope='col'>Titel</th>
+                        <th scope='col'>Beschrijving</th>
+                        <th scope='col'>Vak</th>
+                        <th scope='col'>Deadline</th>
+                        <th scope='col'>Wijzig</th>
+                        <th scope='col'>Verwijder</th>
+                    </tr>
+                    <tbody>
+					<?php foreach ($data as $row) : ?>
+                        <tr>
+                            <td><?= $row['title'] ?></td>
+                            <td><?= $row['description'] ?></td>
+                            <td><?= $row['subject_name'] ?></td>
+                            <td><?= $row['deadline'] ?></td>
+                            <td><a href="huiswerk/wijzig.php?id=<?= $row['id'] ?>">
+                                    <i class="far fa-edit"></i>
+                                </a></td>
+                            <td><a href="dashboardhandler.php?homework_del_id=<?= $row['id'] ?>">
+                                    <i class="fas fa-times"></i>
+                                </a></td>
+                        </tr>
+					<?php endforeach; ?>
+                    </tbody>
+                </table>
+            </form>
 			<?php
-		}
-		
-		static public function deleteHomework($id)
-		{
-			if (!empty($id)) {
-				$conn = Utility::pdoConnect();
-				$del = $conn->prepare("DELETE FROM homework WHERE homework.id = ?;");
-				$del->bindParam(1, $id);
-				$del->execute();
-			} else {
-				http_response_code(405);
-			}
 		}
 		
 		/**

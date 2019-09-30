@@ -4,7 +4,6 @@ if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $feedback = $_POST['feedback_text'];
-    Feedback::send($feedback, $name, $email);
     if (Feedback::send($feedback, $name, $email) == true) {
         RedirectHandler::HTTP_301('index.php');
     } else {
@@ -43,7 +42,7 @@ if (isset($_POST['submit'])) {
             <form method="post">
                 <div class="contact-form">
                     <div class="form-group">
-                        <label class="control-label col-sm-4" for="name">Jouw naam:</label>
+                        <label class="control-label col-sm-4" for="name">naam:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="name" placeholder="Uw naam" name="name">
                         </div>

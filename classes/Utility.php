@@ -36,57 +36,11 @@ class Utility
         $fetch = $conn->query("SELECT * FROM subjects");
         return $fetch;
     }
-
-    /**
-     * @return false|PDOStatement
-     */
-    public static function fetchUsers()
-    {
-        $conn = Utility::pdoConnect();
-        $data = $conn->query("select * from user");
-        return $data;
-    }
-
-    /**\
-     * @param $data
-     *
-     *  Displays users.
-     */
-    public static function displayUsers($data)
-    {
-        ?>
-        <div class="container">
-            <div class='col-md-12'>
-                <form method="get">
-                    <table class='table'>
-                        <thead class='thead-light'>
-                        <tr>
-                            <th scope='col'>Gebruikers naam</th>
-                            <th scope='col'>Gebruikers wachtwoord</th>
-                            <th scope='col'>Gebruiker wijzig</th>
-                            <th scope='col'>Gebruiker verwijder</th>
-                        </tr>
-                        <tbody>
-                        <?php foreach ($data as $row) : ?>
-                            <tr>
-                                <td><?= $row['username'] ?></td>
-                                <td><?= $row['password'] ?></td>
-                                <td><a href="<?= $row['id'] ?>">
-                                        Wijzig
-                                    </a></td>
-                                <td><a href="<?= $row['id'] ?>">
-                                        Verwijder
-                                    </a></td>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-        </div>
-        <?php
-    }
-    
+	
+	/**
+	 * @return false|string
+	 * Fetches and returns current date/time in dutch locale.
+	 */
     public static function fetchCurrentDateTime()
     {
 	    // Set locale to dutch for date.
@@ -96,4 +50,26 @@ class Utility
 	    
 	    return $current_date_filter;
     }
+	
+	/**
+	 * @param $table
+	 *  string Name of table to access.
+	 * @param $column
+	 *  string Name of column in table to use.
+	 * @param $del_id
+	 *  mixed Id of item in table to delete.
+	 *
+	 * Deletes row from mysql table.
+	 */
+	static public function deleteRow($table, $column, $del_id)
+	{
+		if (!empty($del_id)) {
+			$conn = Utility::pdoConnect();
+			$del = $conn->prepare("DELETE FROM $table WHERE $column = ?;");
+			$del->bindParam(1, $del_id);
+			$del->execute();
+		} else {
+			http_response_code(405);
+		}
+	}
 }
