@@ -33,7 +33,6 @@
 		 */
 		public function login()
 		{
-
 			if (!empty($this->username) && !empty($this->pass)) {
 				$conn = Utility::pdoConnect();
 
@@ -45,7 +44,7 @@
 					$user_data = $login->fetch(PDO::FETCH_ASSOC);
 					$hashed_pass = $user_data['password'];
 
-					if (User::verifyEncryptedPassword($this->pass, $hashed_pass)) {
+					if (Utility::verifyEncryptedPassword($this->pass, $hashed_pass)) {
 						// Password verified, user has been logged in.
 						$_SESSION['login_status'] = true;
 						$_SESSION['login_user'] = $user_data['username'];
@@ -68,50 +67,11 @@
 		{
 			if (!empty($this->username) && !empty($this->pass)) {
 				$conn = Utility::pdoConnect();
-				$this->pass = User::encryptPassword($this->pass);
+				$this->pass = Utility::encryptPassword($this->pass);
 				$register = $conn->prepare("INSERT INTO user (id,username,password) VALUES  ((SELECT UUID()), ?, ?)");
 				$register->bindParam(1, $this->username);
 				$register->bindParam(2, $this->pass);
 				$register->execute();
-				return true;
-			} else {
-				return false;
-			}
-		}
-
-		/**
-		 * @param $user_id
-		 *  int User id.
-		 *
-		 * Removes user from user table in database.
-		 */
-		public function remove($user_id)
-		{
-
-		}
-
-		/**
-		 * @param $pass
-		 * @return mixed
-		 *
-		 * Encrypts passwords.
-		 */
-		public static function EncryptPassword($pass)
-		{
-			$hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
-			return $hashed_pass;
-		}
-
-		/**
-		 * @param $pass
-		 * @param $hashed_pass
-		 * @return bool
-		 *
-		 * Verifies encrypted passwords.
-		 */
-		public static function VerifyEncryptedPassword($pass, $hashed_pass)
-		{
-			if (password_verify($pass, $hashed_pass)) {
 				return true;
 			} else {
 				return false;
