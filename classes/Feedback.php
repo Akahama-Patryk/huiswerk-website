@@ -12,7 +12,7 @@
 		 */
 		static public function fetch()
 		{
-			$conn = Utility::pdoConnect();
+			$conn = Database::pdoConnect();
 			$data = $conn->query("select * from feedback");
 			return $data;
 		}
@@ -64,7 +64,7 @@
 		public static function send($feedback, $name = null, $email = null)
 		{
 			if (!empty($feedback)) {
-				$conn = Utility::pdoConnect();
+				$conn = Database::pdoConnect();
 				$send = $conn->prepare("INSERT INTO feedback (id, name, email, feedback) VALUES  ((SELECT UUID()), ?, ?, ?)");
 				$send->bindParam(1, $name);
 				$send->bindParam(2, $email);

@@ -1,5 +1,5 @@
 <?php
-
+	
 	/**
 	 * Class User
 	 */
@@ -10,13 +10,13 @@
 		 * string Username.
 		 */
 		protected $username;
-
+		
 		/**
 		 * @var
 		 *  string Password.
 		 */
 		protected $pass;
-
+		
 		/**
 		 * User constructor.
 		 * @param $username
@@ -27,23 +27,23 @@
 			$this->username = $username;
 			$this->pass = $pass;
 		}
-
+		
 		/**
 		 * Checks input data at login screen against user table, sets session username variable and/or admin status variable.
 		 */
 		public function login()
 		{
 			if (!empty($this->username) && !empty($this->pass)) {
-				$conn = Utility::pdoConnect();
-
+				$conn = Database::pdoConnect();
+				
 				$login = $conn->prepare("select * from user where username=:username");
 				$login->bindParam(':username', $this->username);
 				$login->execute();
-
+				
 				if ($login->rowCount() == 1) {
 					$user_data = $login->fetch(PDO::FETCH_ASSOC);
 					$hashed_pass = $user_data['password'];
-
+					
 					if (Utility::verifyEncryptedPassword($this->pass, $hashed_pass)) {
 						// Password verified, user has been logged in.
 						$_SESSION['login_status'] = true;
@@ -58,15 +58,16 @@
 			}
 			return false;
 		}
-
+		
 		/**
 		 * @return bool
 		 *  Registers users and encrypts password using hash
 		 */
 		public function register()
 		{
-			if (!empty($this->username) && !empty($this->pass)) {
-				$conn = Utility::pdoConnect();
+			$conn = Database::pdoConnect();
+			
+			if (!Database::checkIfExists("user", "username", $this->username)) {
 				$this->pass = Utility::encryptPassword($this->pass);
 				$register = $conn->prepare("INSERT INTO user (id,username,password) VALUES  ((SELECT UUID()), ?, ?)");
 				$register->bindParam(1, $this->username);
@@ -77,7 +78,7 @@
 				return false;
 			}
 		}
-
+		
 		/**
 		 * @return false|PDOStatement
 		 *
@@ -85,11 +86,11 @@
 		 */
 		public static function fetchUsers()
 		{
-			$conn = Utility::pdoConnect();
+			$conn = Database::pdoConnect();
 			$data = $conn->query("select * from user");
 			return $data;
 		}
-
+		
 		/**\
 		 * @param $data
 		 *

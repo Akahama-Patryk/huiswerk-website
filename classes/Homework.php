@@ -19,9 +19,9 @@
 		public static function fetch($order = "ASC", $show_old_data = true, $id = null)
 		{
 			$current_date = Utility::fetchCurrentDateTime();
+			$conn = Database::pdoConnect();
 			
 			if (!empty($id)) {
-				$conn = Utility::pdoConnect();
 				$data = $conn->prepare("select * from homework, subjects, teacher
 WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id
 AND homework.id = :id");
@@ -30,7 +30,6 @@ AND homework.id = :id");
 				return $data->fetchAll();
 			} else {
 				if ($show_old_data == false) {
-					$conn = Utility::pdoConnect();
 					$data = $conn->prepare("select * from homework, subjects, teacher
 WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id
 AND homework.deadline >= :date ORDER BY homework.deadline $order");
@@ -38,7 +37,6 @@ AND homework.deadline >= :date ORDER BY homework.deadline $order");
 					$data->execute();
 					return $data->fetchAll();
 				} else {
-					$conn = Utility::pdoConnect();
 					$data = $conn->prepare("select * from homework, subjects, teacher
 WHERE homework.subject_id = subjects.subject_id AND subjects.subject_teacher_id = teacher.teacher_id
 ORDER BY homework.deadline $order");
@@ -142,7 +140,7 @@ ORDER BY homework.deadline $order");
 		public static function add($title, $description, $subject, $deadline)
 		{
 			if (!empty($title) && !empty($subject) && !empty($deadline)) {
-				$conn = Utility::pdoConnect();
+				$conn = Database::pdoConnect();
 				$send = $conn->prepare("INSERT INTO homework (id, title, description, subject_id, deadline) VALUES  ((SELECT UUID()), ?, ?, ?, ?)");
 				$send->bindParam(1, $title);
 				$send->bindParam(2, $description);
@@ -173,7 +171,7 @@ ORDER BY homework.deadline $order");
 		public static function update($id, $title, $description, $subject, $deadline)
 		{
 			if (!empty($id) && !empty($title) && !empty($subject) && !empty($deadline)) {
-				$conn = Utility::pdoConnect();
+				$conn = Database::pdoConnect();
 				$send = $conn->prepare("Update homework set title = ?, description = ?, subject_id = ?, deadline = ? where id = ?;");
 				$send->bindParam(1, $title);
 				$send->bindParam(2, $description);

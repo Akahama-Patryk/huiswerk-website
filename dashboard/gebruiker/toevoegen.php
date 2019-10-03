@@ -1,14 +1,6 @@
 <?php
 	include_once('../../classes/Autoloader.php');
 	Session::start();
-	if (isset($_POST['username'], $_POST['pass'])) {
-		$username = $_POST['username'];
-		$pass = $_POST['pass'];
-		
-		$user = new User($username, $pass);
-		$user->register();
-		RedirectHandler::HTTP_301('../dashboard.php');
-	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,3 +52,17 @@
         </div>
 </body>
 </html>
+
+<?php
+	if (isset($_POST['username'], $_POST['pass'])) {
+		$username = $_POST['username'];
+		$pass = $_POST['pass'];
+		
+		$user = new User($username, $pass);
+		if ($user->register()) {
+			RedirectHandler::HTTP_301('../dashboard.php');
+		} else {
+			echo "<h1>Gebruiker bestaat al.</h1>";
+		}
+	}
+?>
