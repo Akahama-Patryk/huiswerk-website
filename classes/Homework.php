@@ -14,7 +14,7 @@
 		 *  int Used in dashboard "huiswerk wijzigen".
 		 * @return array
 		 *
-		 * Fetches homework from database.
+		 * Fetches homework from db.
 		 */
 		public static function fetch($order = "ASC", $show_old_data = true, $id = null)
 		{
@@ -52,7 +52,7 @@ ORDER BY homework.deadline $order");
 		 * @param $data
 		 *  mixed array Array containing data.
 		 *
-		 *  Displays homework.
+		 *  Displays homework in html table.
 		 */
 		public static function displayHomework($data)
 		{
@@ -89,7 +89,7 @@ ORDER BY homework.deadline $order");
 		 * @param $data
 		 *  mixed array Array containing data.
 		 *
-		 * Displays homework including edit/delete buttons per row.
+		 * Displays homework including edit/delete buttons per row in html table.
 		 */
 		static public function displayAdminHomework($data)
 		{

@@ -5,15 +5,9 @@
 		$username = $_POST['username'];
 		$pass = $_POST['pass'];
 		
-		// de wachtwoorden moeten opgeslagen zijn in de database met password_hash()
-		
 		$user = new User($username, $pass);
 		$user->register();
-		if ($user == true) {
-			RedirectHandler::HTTP_301('../dashboard.php');
-		} else {
-			echo "Error";
-		}
+		RedirectHandler::HTTP_301('../dashboard.php');
 	}
 ?>
 <!DOCTYPE html>

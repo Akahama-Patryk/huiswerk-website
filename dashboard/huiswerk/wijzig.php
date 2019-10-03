@@ -7,22 +7,13 @@
 		$subject_default = $subject_current['subject_id'];
 		$subject_data = Utility::fetchSubjects();
 		if (isset($_POST['submit'])) {
-			if (isset($_POST['subject'])) {
-				$id = $_GET['id'];
-				$subject = $_POST['subject'];
-				$deadline = $_POST['date'];
-				$title = $_POST['title'];
-				$description = $_POST['description'];
-				Homework::update($id, $title, $description, $subject, $deadline);
-				RedirectHandler::HTTP_301('../dashboard.php');
-			} else {
-				$id = $_GET['id'];
-				$deadline = $_POST['date'];
-				$title = $_POST['title'];
-				$description = $_POST['description'];
-				Homework::update($id, $title, $description, $subject_default, $deadline);
-				RedirectHandler::HTTP_301('../dashboard.php');
-			}
+			$id = $_GET['id'];
+			$subject = $_POST['subject'];
+			$deadline = $_POST['date'];
+			$title = $_POST['title'];
+			$description = $_POST['description'];
+			Homework::update($id, $title, $description, $subject, $deadline);
+			RedirectHandler::HTTP_301('../dashboard.php');
 		}
 	}
 ?>

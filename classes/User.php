@@ -62,13 +62,13 @@
 		
 		/**
 		 * @return bool
-		 *  Registers users and encrypts password using hash
+		 *  Adds user to db.
 		 */
 		public function register()
 		{
 			if (!empty($this->username) && !empty($this->pass)) {
 				$conn = Utility::pdoConnect();
-				$this->pass = User::encryptPassword($this->pass);
+				$this->pass = User::encryptPassword($this->pass, "PASSWORD_DEFAULT");
 				$register = $conn->prepare("INSERT INTO user (id,username,password) VALUES  ((SELECT UUID()), ?, ?)");
 				$register->bindParam(1, $this->username);
 				$register->bindParam(2, $this->pass);
@@ -80,31 +80,25 @@
 		}
 		
 		/**
-		 * @param $user_id
-		 *  int User id.
-		 *
-		 * Removes user from user table in database.
-		 */
-		public function remove($user_id)
-		{
-		
-		}
-		
-		/**
 		 * @param $pass
+		 *  string Password to encrypt.
+		 * @param $algorithm
+		 *  string Encryption algorithm to use.
 		 * @return mixed
 		 *
 		 * Encrypts passwords.
 		 */
-		public static function EncryptPassword($pass)
+		public static function EncryptPassword($pass, $algorithm)
 		{
-			$hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
+			$hashed_pass = password_hash($pass, $algorithm);
 			return $hashed_pass;
 		}
 		
 		/**
 		 * @param $pass
+         *  string Password to check.
 		 * @param $hashed_pass
+         *  string Hashed value to check against.
 		 * @return bool
 		 *
 		 * Verifies encrypted passwords.
@@ -121,7 +115,7 @@
 		/**
 		 * @return false|PDOStatement
 		 *
-		 * Fetches table user from database.
+		 * Fetches table user from db.
 		 */
 		public static function fetchUsers()
 		{

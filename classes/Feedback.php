@@ -8,7 +8,7 @@
 		/**
 		 * @return false|PDOStatement
 		 *
-		 *  Fetches feedback from database.
+		 *  Fetches feedback from db.
 		 */
 		static public function fetch()
 		{
@@ -20,7 +20,7 @@
 		/**
 		 * @param $data
 		 *
-		 *  displays feedback.
+		 *  displays feedback in html table.
 		 */
 		static public function display($data)
 		{
@@ -35,7 +35,7 @@
                         <th scope='col'>Verwijder</th>
                     </tr>
                     <tbody>
-		            <?php foreach ($data as $row) : ?>
+					<?php foreach ($data as $row) : ?>
                         <tr>
                             <td><?= $row['name'] ?></td>
                             <td><?= $row['email'] ?></td>
@@ -43,7 +43,7 @@
                             <td><a href="dashboardhandler.php?feedback_del_id=<?= $row['id'] ?>">
                                     <i class="fas fa-times"></i>
                         </tr>
-		            <?php endforeach; ?>
+					<?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -52,11 +52,14 @@
 		
 		/**
 		 * @param $feedback
+		 *  string Feedback message.
 		 * @param null $name
+		 *  string Name of feedback giver.
 		 * @param null $email
+		 *  string Email of feedback giver.
 		 * @return bool
 		 *
-		 *  Saves feedback in database.
+		 *  Sends feedback to db.
 		 */
 		public static function send($feedback, $name = null, $email = null)
 		{

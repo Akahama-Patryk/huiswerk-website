@@ -1,20 +1,14 @@
 <?php
-include_once('../../classes/Autoloader.php');
-Session::start();
-if (isset($_POST['username'], $_POST['pass'])) {
-    $username = $_POST['username'];
-    $pass = $_POST['pass'];
-
-    // de wachtwoorden moeten opgeslagen zijn in de database met password_hash()
-
-    $user = new User($username, $pass);
-    $user->register();
-    if ($user == true) {
-        RedirectHandler::HTTP_301('../dashboard.php');
-    } else {
-        echo "Error";
-    }
-}
+	include_once('../../classes/Autoloader.php');
+	Session::start();
+	if (isset($_POST['username'], $_POST['pass'])) {
+		$username = $_POST['username'];
+		$pass = $_POST['pass'];
+		
+		$user = new User($username, $pass);
+		$user->register();
+		RedirectHandler::HTTP_301('../dashboard.php');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,14 +26,14 @@ if (isset($_POST['username'], $_POST['pass'])) {
             <h2>Gebruiker toevoegen</h2>
         </div>
         <div class="col-md-4 text-right">
-                        <?php
-                        if (Session::loginStatus()) {
-                            ?> <a href="../../logout.php" class="btn btn-primary">Uitloggen</a> <?php
-                            ?> <a href="../../index.php" class="btn btn-primary">Home</a> <?php
-                        } else {
-                            RedirectHandler::HTTP_301('../../dashboard.php');
-                        }
-                        ?>
+			<?php
+				if (Session::loginStatus()) {
+					?> <a href="../../logout.php" class="btn btn-primary">Uitloggen</a> <?php
+					?> <a href="../../index.php" class="btn btn-primary">Home</a> <?php
+				} else {
+					RedirectHandler::HTTP_301('../../dashboard.php');
+				}
+			?>
         </div>
         <div class="col-md-12" style="margin-top:2em;">
             <div class="card rounded-0">

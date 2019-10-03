@@ -3,7 +3,6 @@
 	Session::start();
 	$subject_data = Utility::fetchSubjects();
 	if (isset($_POST['submit'])) {
-		
 		$subject = $_POST['subject'];
 		$deadline = $_POST['date'];
 		$title = $_POST['title'];

@@ -1,16 +1,13 @@
 <?php
-include_once('classes/Autoloader.php');
-if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $feedback = $_POST['feedback_text'];
-    if (Feedback::send($feedback, $name, $email) == true) {
+	include_once('classes/Autoloader.php');
+	if (isset($_POST['submit'])) {
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$feedback = $_POST['feedback_text'];
+		
+		Feedback::send($feedback, $name, $email);
         RedirectHandler::HTTP_301('index.php');
-    } else {
-        echo "Sending feedback failed.";
-    }
-
-}
+	}
 ?>
 <html lang="nl">
 <head>
