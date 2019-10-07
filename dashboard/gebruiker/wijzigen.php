@@ -1,14 +1,12 @@
 <?php
-	include_once('../../classes/Autoloader.php');
-	Session::start();
-	if (isset($_POST['username'], $_POST['pass'])) {
-		$username = $_POST['username'];
-		$pass = $_POST['pass'];
-		
-		$user = new User($username, $pass);
-		$user->register();
-		RedirectHandler::HTTP_301('../dashboard.php');
-	}
+include_once('../../classes/Autoloader.php');
+Session::start();
+if (isset($_POST['submit'])) {
+    $username = $_POST['username'];
+    $password = $_POST['pass'];
+    User::updateUser($_GET['user_id'], $username, $password);
+    RedirectHandler::HTTP_301('../dashboard.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,37 +24,19 @@
             <h2>Gebruiker wijzigen</h2>
         </div>
         <div class="col-md-4 text-right">
-			<?php
-				if (Session::loginStatus()) {
-					?> <a href="../../logout.php" class="btn btn-primary">Uitloggen</a> <?php
-					?> <a href="../../index.php" class="btn btn-primary">Home</a> <?php
-				} else {
-					RedirectHandler::HTTP_301('../../dashboard.php');
-				}
-			?>
+            <?php
+            if (Session::loginStatus()) {
+                ?> <a href="../../logout.php" class="btn btn-primary">Uitloggen</a> <?php
+                ?> <a href="../../index.php" class="btn btn-primary">Home</a> <?php
+            } else {
+                RedirectHandler::HTTP_301('../../dashboard.php');
+            }
+            ?>
         </div>
-        <div class="col-md-12" style="margin-top:2em;">
-            <div class="card rounded-0">
-                <div class="card-body bg-light">
-                    <form class="form" role="form" id="formRegister" method="POST">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control form-control-lg rounded-0" name="username" id="user"
-                                   required
-                                   placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control form-control-lg rounded-0" id="pass" name="pass"
-                                   required
-                                   autocomplete="new-password" placeholder="">
-                        </div>
-                        <button type="submit" name="submit" class="btn btn-success btn-lg float-right" id="btnLogin">
-                            Bevestig
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <?php
+        //when getting id from user table in dashboad admin it gonna fetch data about this user.
+        if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
+            User::displayUserUpdate(user::fetchUser($_GET['user_id']));
+        } ?>
 </body>
 </html>

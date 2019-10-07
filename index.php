@@ -1,6 +1,6 @@
-    <?php
-	include_once('classes/Autoloader.php');
-	Session::start();
+<?php
+include_once('classes/Autoloader.php');
+Session::start();
 ?>
 <html lang="nl">
 <head>
@@ -23,7 +23,7 @@
 <br>
 <div class="container">
     <div class="row">
-		<?php Homework::displayHomework(Homework::fetch("ASC", false)); ?>
+        <?php Homework::displayHomework(Homework::fetch("ASC", false)); ?>
     </div>
 </div>
 </body>
