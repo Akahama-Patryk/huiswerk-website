@@ -1,7 +1,7 @@
 <?php
 	include_once('../../classes/Autoloader.php');
 	Session::start();
-	$subject_data = Utility::fetchSubjects();
+	$subject_data = Database::fetchSubjects();
 	if (isset($_POST['submit'])) {
 		$subject = $_POST['subject'];
 		$deadline = $_POST['date'];

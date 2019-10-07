@@ -111,7 +111,7 @@
 					<?php foreach ($data as $row) : ?>
                         <tr>
                             <td><?= $row['username'] ?></td>
-                            <td><a href="gebruiker/wijzigen.php<?= $row['id'] ?>">
+                            <td><a href="gebruiker/wijzigen.php?user_id=<?= $row['id'] ?>">
                                     <i class="far fa-edit"></i>
                                 </a></td>
                             <td><a href="dashboardhandler.php?user_del_id=<?= $row['id'] ?>">
