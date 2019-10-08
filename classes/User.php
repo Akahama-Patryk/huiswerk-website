@@ -202,7 +202,8 @@ class User
         $conn = Database::pdoConnect();
 
         if (!Database::checkIfExists("user", "username", $this->username)) {
-            $this->pass = Utility::encryptPassword($this->pass);
+
+            $this->pass = Utility::EncryptPassword($this->pass);
             $register = $conn->prepare("INSERT INTO user (id,username,password) VALUES  ((SELECT UUID()), ?, ?)");
             $register->bindParam(1, $this->username);
             $register->bindParam(2, $this->pass);

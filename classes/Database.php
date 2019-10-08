@@ -51,15 +51,15 @@
 		 *  string Name of item to check if exists.
 		 * @return bool
 		 *
-		 *  Checks if item exists in column in table.
+		 *  Checks if item exists in column in table. if exists, return true.
 		 */
 		public static function checkIfExists($table, $column, $item)
 		{
 			$conn = Database::pdoConnect();
 			$exists = $conn->prepare("SELECT $column FROM $table WHERE $column = '$item'");
 			$exists->execute();
-			
-			if ($exists->fetchAll() >= 0) {
+
+			 if ($exists->rowCount() > 0) {
 				return true;
 			} else {
 				return false;
